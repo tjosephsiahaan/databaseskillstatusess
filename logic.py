@@ -113,10 +113,7 @@ WHERE project_name=? AND user_id=?
         return self.__select_data(sql=sql, data = (project_name, user_id))
 
 
-    def update_projects(self, param, data):
-        sql =  f"""UPDATE projects SET {param} = ? 
-WHERE project_name = ? AND user_id = ?""" # Masukkan kueri SQL yang benar di sini
-        self.__executemany(sql, [data]) 
+    
 
 
     def delete_project(self, user_id, project_id):
@@ -129,6 +126,10 @@ WHERE user_id = ? AND project_id = ? """ # Masukkan kueri SQL yang benar di sini
 WHERE skill_id = ? AND project_id = ? """ # Masukkan kueri SQL yang benar di sini
         self.__executemany(sql, [(skill_id, project_id)])
 
+    def update_status(self, data, old_status_name):
+        sql =  f"""UPDATE status SET status_name = ? 
+WHERE status_name = ?""" # Masukkan kueri SQL yang benar di sini
+        self.__executemany(sql, [(data, old_status_name)]) 
 
 if __name__ == '__main__':
     manager = DB_Manager(DATABASE)
